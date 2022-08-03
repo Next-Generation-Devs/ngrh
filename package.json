@@ -11,6 +11,9 @@
     "hooks",
     "library"
   ],
+  "dependencies": {
+    "prop-types": "^15.8.1"
+  },
   "author": "NGRH Team",
   "license": "MIT",
   "bugs": {
