@@ -1,5 +1,5 @@
 import { renderHook } from "@testing-library/react-hooks";
-import { useSocket } from "../src/hooks/use-socket";
+import { useSocket } from "hooks/use-socket";
 import { describe, it, expect } from "vitest";
 import { Socket } from "socket.io-client";
 
