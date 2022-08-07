@@ -16,7 +16,7 @@
   "author": "NGRH Team",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Next-Generation-React-Hooks/ngrh/issues"
+    "url": "https://github.com/Next-Generation-React-Hooks/ngrh/labels/bug"
   },
   "homepage": "https://github.com/Next-Generation-React-Hooks/ngrh#readme",
   "devDependencies": {
