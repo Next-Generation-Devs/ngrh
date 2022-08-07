@@ -2,7 +2,9 @@
   "name": "ngrh",
   "version": "1.0.0",
   "description": "Wide React Hooks Library",
-  "scripts": {},
+  "scripts": {
+    "test": "vitest"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Next-Generation-React-Hooks/ngrh.git"
@@ -11,13 +13,17 @@
     "hooks",
     "library"
   ],
-  "dependencies": {
-    "prop-types": "^15.8.1"
-  },
   "author": "NGRH Team",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Next-Generation-React-Hooks/ngrh/issues"
   },
-  "homepage": "https://github.com/Next-Generation-React-Hooks/ngrh#readme"
+  "homepage": "https://github.com/Next-Generation-React-Hooks/ngrh#readme",
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/react-hooks": "^8.0.1",
+    "vite": "^3.0.4",
+    "vitest": "^0.21.0"
+  }
 }
