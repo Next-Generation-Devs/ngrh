@@ -1,15 +1,21 @@
-import { useEffect, useRef, useState } from "react";
-import { io } from "socket.io-client";
+import { useEffect, useRef, useState, RefObject } from "react";
+import { io, Socket, ManagerOptions } from "socket.io-client";
 
 let socket = null;
 
 /**
- * This hook allows you to use socket.io socket object easily with react.
+ * @typedef {object} ReturnObject
+ * @property {RefObject<Socket>} socketRef
+ * @property {boolean} isConnecting
+ * @property {boolean} isDisconnected
+ */
+
+/**
  * @param {string} serverUrl - the url of the server where your server socket is working.
- * @param {import("socket.io-client").ManagerOptions} [options={}] - the options of the socket.
+ * @param {ManagerOptions} [options={}] - the options of the socket (see all the options [here](https://socket.io/docs/v4/client-options/)).
  * @param {Function} [onConnect] - a callback function that run on socket connection.
  * @param {Function} [onDisconnect] - a callback function that run on socket disconnection.
- * @returns {{socketRef: import("react").RefObject, isConnecting: boolean, isDisconnected: boolean}}
+ * @returns {ReturnObject} ```{ socketRef, isConnecting, isDisconnected }```
  */
 
 export const useSocket = (
