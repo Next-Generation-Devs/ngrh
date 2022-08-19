@@ -11,6 +11,6 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "jsodc"],
+  "plugins": ["react"],
   "rules": {}
 }

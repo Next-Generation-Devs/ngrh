@@ -1,5 +1,5 @@
 import { renderHook, waitFor } from "@testing-library/react";
-import { useSocket } from "hooks/use-socket";
+import useSocket from "hooks/use-socket";
 import { describe, it, expect } from "vitest";
 import { Socket } from "socket.io-client";
 

@@ -41,7 +41,7 @@ The SocketProvider Component take 4 properties:
 Using the useSocket hook directly:
 
 ```js
-import { useSocket } from "ngrh/use-socket";
+import useSocket from "ngrh/use-socket";
 
 const SomeComp = () => {
   const { socketRef, isConnecting, isDisconnected } = useSocket(
