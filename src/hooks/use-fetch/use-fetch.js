@@ -5,13 +5,10 @@ import * as types from "./helpers/types"; // eslint-disable-line no-unused-vars
 import { mutate as internalMutate } from "./helpers/mutate";
 
 /**
- * @param {string} url
- * @param {types.Configurations} [options={}]
- * @return {types.ReturnObject}
+ * @type {types.useFetch}
  */
 
-export const useFetch = (url, options = {}) => {
-  const key = `$fetch_${url}`;
+export const useFetch = (key, options = {}) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -48,7 +45,7 @@ export const useFetch = (url, options = {}) => {
       } else {
         const getResult = async () => {
           try {
-            const result = await fetchProvider(url);
+            const result = await fetchProvider(key);
             setLoading(false);
             setCache(key, {
               data: result,

@@ -1,4 +1,11 @@
 /**
+ * @callback useFetch
+ * @param {string} key
+ * @param {Configurations} [options={}]
+ * @return {ReturnObject}
+ */
+
+/**
  * @callback FetchProvider
  * @param {string} key
  * @return {Promise<any> | any}

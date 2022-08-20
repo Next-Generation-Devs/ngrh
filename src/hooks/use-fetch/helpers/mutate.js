@@ -1,7 +1,6 @@
 import { initCache } from "./cache";
 import { GlobalState } from "./global-state";
 import * as types from "./types"; // eslint-disable-line no-unused-vars
-import { getURL } from "./utils";
 
 /**
  * @return {types.MutateDefaultOptions}
@@ -47,9 +46,8 @@ export const mutate = async (key, dataPromise, opt) => {
     }
   }
   if (options.revalidate) {
-    const url = getURL(key);
     try {
-      const result = await fetchProvider(url);
+      const result = await fetchProvider(key);
       set(key, { ...cachedData, data: result, error: null });
     } catch (err) {
       set(key, {
@@ -71,11 +69,10 @@ export const revalidateAllKeys = () => {
     } = value;
     if (revalidateOnFocus) {
       const cachedData = get(key);
-      const url = getURL(key);
       if (!cachedData.isValidating) {
         try {
           set(key, { ...value, isValidating: true });
-          const result = await fetchProvider(url);
+          const result = await fetchProvider(key);
           set(key, {
             ...value,
             data: result,
