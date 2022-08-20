@@ -45,7 +45,10 @@ export const useFetch = (key, options = {}) => {
       } else {
         const getResult = async () => {
           try {
-            const result = await fetchProvider(key);
+            let result = fetchProvider(key);
+            if (result instanceof Promise) {
+              result = await result;
+            }
             setLoading(false);
             setCache(key, {
               data: result,

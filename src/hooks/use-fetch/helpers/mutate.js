@@ -27,7 +27,10 @@ export const mutate = async (key, dataPromise, opt) => {
   }
   if (dataPromise) {
     try {
-      const result = await dataPromise;
+      let result = dataPromise;
+      if (result instanceof Promise) {
+        result = await result;
+      }
       if (!opt.tempData) {
         set(key, {
           ...cachedData,
@@ -47,7 +50,10 @@ export const mutate = async (key, dataPromise, opt) => {
   }
   if (options.revalidate) {
     try {
-      const result = await fetchProvider(key);
+      let result = fetchProvider(key);
+      if (result instanceof Promise) {
+        result = await result;
+      }
       set(key, { ...cachedData, data: result, error: null });
     } catch (err) {
       set(key, {
@@ -72,7 +78,10 @@ export const revalidateAllKeys = () => {
       if (!cachedData.isValidating) {
         try {
           set(key, { ...value, isValidating: true });
-          const result = await fetchProvider(key);
+          let result = fetchProvider(key);
+          if (result instanceof Promise) {
+            result = await result;
+          }
           set(key, {
             ...value,
             data: result,
