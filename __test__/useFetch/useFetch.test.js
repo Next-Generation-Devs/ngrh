@@ -10,7 +10,7 @@ createFetchMock(vi);
 describe("useFetch Hook", () => {
   it("to fetch data", async () => {
     const { result } = renderHook(() =>
-      useFetch("http://localhost:1600/products")
+      useFetch("https://ngrh-test-server.onrender.com/products")
     );
     const { loading } = result.current;
     expect(loading).toEqual(true);
@@ -28,7 +28,9 @@ describe("useFetch Hook", () => {
       () => {
         const [get] = initCache();
         /**@type {types.CacheRecord} */
-        const cachedData = get("http://localhost:1600/products");
+        const cachedData = get(
+          "https://ngrh-test-server.onrender.com/products"
+        );
         expect(cachedData).toHaveProperty("data");
         expect(cachedData).toHaveProperty("onMutate");
         expect(cachedData).toHaveProperty("config");

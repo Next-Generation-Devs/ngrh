@@ -8,13 +8,13 @@ import { initCache } from "hooks/use-fetch/helpers/cache";
 createFetchMock(vi);
 
 const fetcher = async () => {
-  const res = await fetch("http://localhost:1600/products");
+  const res = await fetch("https://ngrh-test-server.onrender.com/products");
   const data = await res.json();
   return data;
 };
 
 const updater = async (id, newName) => {
-  await fetch(`http://localhost:1600/products/${id}`, {
+  await fetch(`https://ngrh-test-server.onrender.com/products/${id}`, {
     method: "PUT",
     body: JSON.stringify({ name: newName }),
     headers: { "content-type": "application/json" },
