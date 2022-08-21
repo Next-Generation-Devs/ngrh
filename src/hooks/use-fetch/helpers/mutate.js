@@ -31,7 +31,7 @@ export const mutate = async (key, dataPromise, opt) => {
       if (result instanceof Promise) {
         result = await result;
       }
-      if (!opt.tempData) {
+      if (!options.tempData) {
         set(key, {
           ...cachedData,
           data: result,
@@ -39,10 +39,10 @@ export const mutate = async (key, dataPromise, opt) => {
         });
       }
     } catch (err) {
-      if (!opt.tempData) {
+      if (!options.tempData) {
         set(key, {
           ...cachedData,
-          data: opt.rollbackOnError ? cachedData.data : null,
+          data: options.rollbackOnError ? cachedData.data : null,
           error: err,
         });
       }
@@ -58,7 +58,7 @@ export const mutate = async (key, dataPromise, opt) => {
     } catch (err) {
       set(key, {
         ...cachedData,
-        data: opt.rollbackOnError ? cachedData.data : null,
+        data: options.rollbackOnError ? cachedData.data : null,
         error: err,
       });
     }
