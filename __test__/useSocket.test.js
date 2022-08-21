@@ -15,7 +15,7 @@ describe("useSocket", () => {
     const { result } = renderHook(() =>
       useSocket("https://ngrh-test-server.onrender.com")
     );
-    waitFor(
+    await waitFor(
       () => {
         const { socketRef, isConnecting, isDisconnected } = result.current;
         expect(socketRef.current).toBeInstanceOf(Socket);
