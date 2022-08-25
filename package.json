@@ -33,5 +33,8 @@
     "vite": "^3.0.4",
     "vitest": "^0.21.0",
     "vitest-fetch-mock": "^0.2.1"
+  },
+  "dependencies": {
+    "@testing-library/user-event": "^14.4.3"
   }
 }
