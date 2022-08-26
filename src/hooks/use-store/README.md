@@ -16,20 +16,20 @@ The use-store hook is pretty simple to use. you just pass it the key and the ini
 
 The hook parameters 💡:
 
-- key 🗝️: a unique key to mark your state and be able to call it from the global store.
-- initialState 🎚️: the initial state for your stored data (use it when you initilaize your state for the first time).
+- `key` 🗝️: a unique key to mark your state and be able to call it from the global store.
+- `initialState` 🎚️: the initial state for your stored data (use it when you initilaize your state for the first time, _it defaults to `null`_).
 
 The hook returns 👉:
 
-- state 🎚️: the current state.
-- setState 🔗: a function to change the current state.
+- `state` 🎚️: the current state.
+- `setState` 🔗: a function to change the current state.
 
 We created also a hook called useGlobalStore that returns the store which include all the states in the app and a function to update any of those states.
 
 The use-global-hook don't need any params and will return 👉:
 
-- store 🏪: an object that holds all the stored data in the application.
-- updateStoreData 🔗: a function to update a specific state someplace in the app.
+- `store` 🏪: an object that holds all the stored data in the application.
+- `updateStoreData` 🔗: a function to update a specific state someplace in the app.
 
 ## Examples 💥
 
