@@ -28,7 +28,9 @@ describe("mutate test", () => {
     const { result } = renderHook(() =>
       useFetch(key, { fetchProvider: fetcher })
     );
-    await waitFor(() => expect(result.current.data[0].id).toEqual(1));
+    await waitFor(() => expect(result.current.data[0].id).toEqual(1), {
+      timeout: 3000,
+    });
     const { mutate } = result.current;
     act(() => {
       mutate({ name: "update" }, { revalidate: false });
@@ -41,34 +43,44 @@ describe("mutate test", () => {
     const { result } = renderHook(() =>
       useFetch(key, { fetchProvider: fetcher })
     );
-    await waitFor(() => expect(result.current.data[0].id).toEqual(1));
+    await waitFor(() => expect(result.current.data[0].id).toEqual(1), {
+      timeout: 3000,
+    });
     const { mutate } = result.current;
     act(() => {
       mutate(null, { tempData: { name: "temp" } });
     });
     expect(result.current.data.name).toEqual("temp");
-    await waitFor(() => expect(result.current.data[0].id).toEqual(1));
+    await waitFor(() => expect(result.current.data[0].id).toEqual(1), {
+      timeout: 3000,
+    });
   });
   it("test mutate on server", async () => {
     const key = randomstring.generate(15);
     const { result } = renderHook(() =>
       useFetch(key, { fetchProvider: fetcher })
     );
-    await waitFor(() => expect(result.current.data[0].id).toEqual(1));
+    await waitFor(() => expect(result.current.data[0].id).toEqual(1), {
+      timeout: 3000,
+    });
     const { mutate } = result.current;
     const newName = randomstring.generate(10);
     act(() => {
       mutate(updater(2, newName), { tempData: "updating" });
     });
     expect(result.current.data).toEqual("updating");
-    await waitFor(() => expect(result.current.data[1].name).toEqual(newName));
+    await waitFor(() => expect(result.current.data[1].name).toEqual(newName), {
+      timeout: 3000,
+    });
   });
   it("test mutate in cache", async () => {
     const key = randomstring.generate(15);
     const { result } = renderHook(() =>
       useFetch(key, { fetchProvider: fetcher })
     );
-    await waitFor(() => expect(result.current.data[0].id).toEqual(1));
+    await waitFor(() => expect(result.current.data[0].id).toEqual(1), {
+      timeout: 3000,
+    });
     const { mutate } = result.current;
     const newName = randomstring.generate(10);
     await act(async () => {

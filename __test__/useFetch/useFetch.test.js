@@ -20,27 +20,20 @@ describe("useFetch Hook", () => {
         expect(data).toBeTruthy();
         expect(error).toBeNull();
       },
-      { timeout: 1500, interval: 500 }
+      { timeout: 3000 }
     );
   });
   it("to cache data and have the cache props", async () => {
-    await waitFor(
-      () => {
-        const [get] = initCache();
-        /**@type {types.CacheRecord} */
-        const cachedData = get(
-          "https://ngrh-test-server.onrender.com/products"
-        );
-        expect(cachedData).toHaveProperty("data");
-        expect(cachedData).toHaveProperty("onMutate");
-        expect(cachedData).toHaveProperty("config");
-        expect(cachedData).toHaveProperty("error");
-        expect(cachedData).toHaveProperty("isValidating");
-        const { data, error } = cachedData;
-        expect(Array.isArray(data)).toBe(true); // for this api endpoint
-        expect(error).toBeNull();
-      },
-      { timeout: 1500, interval: 500 }
-    );
+    const [get] = initCache();
+    /**@type {types.CacheRecord} */
+    const cachedData = get("https://ngrh-test-server.onrender.com/products");
+    expect(cachedData).toHaveProperty("data");
+    expect(cachedData).toHaveProperty("onMutate");
+    expect(cachedData).toHaveProperty("config");
+    expect(cachedData).toHaveProperty("error");
+    expect(cachedData).toHaveProperty("isValidating");
+    const { data, error } = cachedData;
+    expect(Array.isArray(data)).toBe(true); // for this api endpoint
+    expect(error).toBeNull();
   });
 });

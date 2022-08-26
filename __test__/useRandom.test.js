@@ -14,14 +14,12 @@ describe("test use-random hook", () => {
   it("should have default alphanumeric charset and 32 length", () => {
     const { result } = renderHook(() => useRandom());
     const word = result.current.generate();
-    expect(word).toHaveLength(32);
-    expect(word).toMatch(/[A-z]{1,}[0-9]{1,}/g);
+    expect(word).toMatch(/^[A-z0-9]{32}$/g);
   });
   it("should accept length option", () => {
     const { result } = renderHook(() => useRandom(10));
     const word = result.current.generate();
-    expect(word).toHaveLength(10);
-    expect(word).toMatch(/[A-z]{1,}[0-9]{1,}/g);
+    expect(word).toMatch(/^[A-z0-9]{10}$/g);
   });
   it("should accept object from options", () => {
     const { result } = renderHook(() =>
