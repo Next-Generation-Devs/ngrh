@@ -3,10 +3,10 @@ import { Socket, ManagerOptions } from "socket.io-client";
 import { RefObject } from "react";
 
 /**
- * @typedef {object} ReturnObject
- * @prop {RefObject<Socket>} socketRef
- * @prop {boolean} isConnecting
- * @prop {boolean} isDisconnected
+ * @typedef {Object} ReturnObject
+ * @prop {RefObject<Socket>} socketRef - the ref to the socket object (see more details [here](https://socket.io/docs/v4/client-api/#socket)).
+ * @prop {boolean} isConnecting - state indicates the connecting stage of the socket.
+ * @prop {boolean} isDisconnected - state detects when the socket is disconnected.
  */
 
 /**
@@ -19,11 +19,11 @@ import { RefObject } from "react";
  */
 
 /**
- * @typedef {object} ProviderProps
- * @property {string} socketURL - the url of the server where your server socket is working.
- * @property {ManagerOptions} [socketOptions={}] - the options of the socket (see all the options [here](https://socket.io/docs/v4/client-options/)).
- * @property {Function} [onConnect] - a callback function that run on socket connection.
- * @property {Function} [onDisconnect] - a callback function that run on socket disconnection.
+ * @typedef {Object} ProviderProps
+ * @prop {string} socketURL - the url of the server where your server socket is working.
+ * @prop {ManagerOptions} [socketOptions={}] - the options of the socket (see all the options [here](https://socket.io/docs/v4/client-options/)).
+ * @prop {Function} [onConnect] - a callback function that run on socket connection.
+ * @prop {Function} [onDisconnect] - a callback function that run on socket disconnection.
  */
 
 export {};

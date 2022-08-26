@@ -22,21 +22,27 @@ After the installation is completed you can import the hook and start to use it!
 
 The hook takes 4 parameters 💡:
 
-- serverUrl 🔗: the url of the server where your server socket is working.
-- options ⚙️: the options of the socket (see all the options [here](https://socket.io/docs/v4/client-options/)).
-- onConnect 🤝: a callback function that run on socket connection.
-- onDisconnect 🙌: a callback function that run on socket disconnection.
+- `serverUrl` 🔗: the url of the server where your server socket is working.
+- `options` ⚙️: the options of the socket (see all the options [here](https://socket.io/docs/v4/client-options/)).
+- `onConnect` 🤝: a callback function that run on socket connection.
+- `onDisconnect` 🙌: a callback function that run on socket disconnection.
+
+The hook return an object contains 3 props ✨:
+
+- `socketRef` 💠: the ref to the socket object (see more details [here](https://socket.io/docs/v4/client-api/#socket)).
+- `isConnecting` 🔃: state indicates the connecting stage of the socket.
+- `isDisconnected` 🕸️: state detects when the socket is disconnected.
 
 This hook comes with a **context** component that you can use if you want to use the hooks props in nested components in the application. We recomend to use this compnent due to it's cleaner code and better implementation.
 
 The SocketProvider Component take 4 properties 💡:
 
-- serverUrl 🔗: the url of the server where your server socket is working.
-- socketOptions ⚙️: the options of the socket (see all the options [here](https://socket.io/docs/v4/client-options/)).
-- onConnect 🤝: a callback function that run on socket connection.
-- onDisconnect 🙌: a callback function that run on socket disconnection.
+- `serverUrl` 🔗: the url of the server where your server socket is working.
+- `socketOptions` ⚙️: the options of the socket (see all the options [here](https://socket.io/docs/v4/client-options/)).
+- `onConnect` 🤝: a callback function that run on socket connection.
+- `onDisconnect` 🙌: a callback function that run on socket disconnection.
 
-## Examples
+## Examples 💥
 
 Using the useSocket hook directly ▶️:
 
