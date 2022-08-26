@@ -8,7 +8,7 @@ The hook takes options as parameter and could be a number or object.
 
 If the option is a number then it will be the length of the random word generated.
 
-If the option is and object then he can contain the following props:
+If the option is and object then he can contain the following props 💫:
 
 - `length` 📏: the length of the random string (_defaults to `32`_).
 - `type` 🎗️: could be individual, object or array and it determens the return type of the generate function so it could be a single word or a collection of words (_defaults to `"individual"`_).
