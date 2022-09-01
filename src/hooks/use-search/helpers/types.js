@@ -24,7 +24,7 @@ import { RefObject } from "react";
  * @typedef {Object} Options
  * @prop {boolean} [parsePaths] - when the search type is "path" and you want to get the value of the path set this prop to true. Otherwise the results will be the paths of the values (_defaults to false_).
  * @prop {boolean} [strictFilter] - if you want to get the whole object that contains a match then set this to false. If set to true then it will return only the props that match the given query and delete the other props (_defaults to false_).
- * @prop {('filter' | 'check' | 'path')} [searchType] - the type of the search (_defaults to "filter"_).
+ * @prop {('filter' | 'check' | 'path')} [searchType] - the type of the search can be ("filter","check","path") (_defaults to "filter"_).
  */
 
 /**
@@ -60,7 +60,7 @@ import { RefObject } from "react";
  * @callback FindPath
  * @param {any} source - the source to find the path from depending on the query.
  * @param {string} query - the query of the search.
- * @param {boolean} [parsePaths] - the query of the search (_defaults to false_).
+ * @param {boolean} [parsePaths] - a boolean to decide if the result will be the paths itself or the value of that paths (_defaults to false_).
  * @return {Array<any>} - if the parse path option is true then this will be an array of the values of the paths otherwise it will be array of the paths.
  */
 
