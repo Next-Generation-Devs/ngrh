@@ -1,6 +1,11 @@
 import { useCallback, useReducer } from "react";
 import { GlobalStore } from "./helpers/global-store";
 import reducer from "./helpers/reducer";
+import * as types from "./helpers/types"; // eslint-disable-line no-unused-vars
+
+/**
+ * @type {types.useGlobalStore}
+ */
 
 export const useGlobalStore = () => {
   const [store, dispatch] = useReducer(

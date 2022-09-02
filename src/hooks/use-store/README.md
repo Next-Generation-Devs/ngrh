@@ -22,14 +22,17 @@ The hook parameters 💡:
 The hook returns 👉:
 
 - `state` 🎚️: the current state.
-- `setState` 🔗: a function to change the current state.
+- `setState` 🔗: a function to change the current state. takes one parameter:
+- - `state`: the new state.
 
 We created also a hook called useGlobalStore that returns the store which include all the states in the app and a function to update any of those states.
 
 The use-global-hook don't need any params and will return 👉:
 
 - `store` 🏪: an object that holds all the stored data in the application.
-- `updateStoreData` 🔗: a function to update a specific state someplace in the app.
+- `updateStoreData` 🔗: a function to update a specific state someplace in the app. it takes two parameters :
+- - `key`: the key of the stored data you want to update.
+- - `state`: the new state.
 
 ## Examples 💥
 
