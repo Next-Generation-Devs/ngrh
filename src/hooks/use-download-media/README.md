@@ -10,12 +10,12 @@ The hook take no params to run.
 
 The hook return an object that contains 4 values:
 
-- `download` ⬇️: the main function of this hook. this function downloads the source to the local browser (like MEGA) so that you'll be able to download it locally. these function takes an object of options as a parameter:
-- - url: the url of the source.
-- - fileName: the name of the file (should include the extension).
-- - id: the id to identify the file (used in `getLoadingById` and `downloadToLocal`).
-- - withAutoDownload: a flag to determine if the file will be downloaded automatically after being downloaded to the borwser or not (_defaults to false_).
-- `getLoadingById` 📶: a function that returns the progress of the download function. the function takes the file id as a parameter.
+- `download` ⬇️: the main function of this hook. this function downloads the source to the local browser (like MEGA) so that you'll be able to download it locally. this function takes an object of options as a parameter:
+- - `url`: the url of the source.
+- - `fileName`: the name of the file (should include the extension. _defaults to the source name_).
+- - `id`: the id to identify the file (used in `getLoadingById` and `downloadToLocal`).
+- - `withAutoDownload`: a flag to determine if the file will be downloaded automatically after being downloaded to the borwser or not (_defaults to false_).
+- `getLoadingById` 📶: a function that returns the **progress** of the download function. the function takes the file id as a parameter.
 - `files` 📁: the files that have downloaded. This array contains all the files chunks and their downloading state so you can manipulate them as you wish.
 - `downloadToLocal` 🗃️: a function that downloads the file with a specific id. the function takes the file id as a parameter.
 

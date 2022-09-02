@@ -1,36 +1,6 @@
-import { useReducer } from "react";
+import { useCallback, useReducer } from "react";
 import * as types from "./helpers/types"; // eslint-disable-line no-unused-vars
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "CREATE_LOADING": {
-      const { id, fileName, chunks, loading } = action;
-      return [...state, { id, chunks, fileName, loading }];
-    }
-    case "UPDATE_LOADING": {
-      return state.map((el) => {
-        if (el.id === action.id) {
-          return { ...el, loading: action.loading };
-        } else {
-          return el;
-        }
-      });
-    }
-
-    case "UPDATE_CHUNKS": {
-      return state.map((el) => {
-        if (el.id === action.id) {
-          return { ...el, chunks: action.chunks };
-        } else {
-          return el;
-        }
-      });
-    }
-    default: {
-      return state;
-    }
-  }
-};
+import { reducer } from "./helpers/reducer";
 
 /**
  * @type {types.useDownloadMedia}
@@ -38,25 +8,31 @@ const reducer = (state, action) => {
 export const useDownloadMedia = () => {
   const [files, dispatch] = useReducer(reducer, []);
 
-  const downloadToLocal = (id) => {
-    const file = files.find((el) => el.id === id);
-    if (file) {
-      let blob = new Blob(file.chunks);
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = file.fileName;
-      a.click();
-      a.remove();
-    }
-  };
+  const downloadToLocal = useCallback(
+    (id) => {
+      const file = files.find((el) => el.id === id);
+      if (file) {
+        let blob = new Blob(file.chunks);
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = file.fileName;
+        a.click();
+        a.remove();
+      }
+    },
+    [files]
+  );
 
-  const getLoadingById = (id) => {
-    const temp = files.find((el) => el.id === id);
-    if (temp) {
-      return temp.loading;
-    }
-    return -1;
-  };
+  const getLoadingById = useCallback(
+    (id) => {
+      const temp = files.find((el) => el.id === id);
+      if (temp) {
+        return temp.loading;
+      }
+      return -1;
+    },
+    [files]
+  );
 
   const download = async ({
     url,
