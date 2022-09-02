@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { getDefaultOptions } from "./helpers/options";
 import { getSet } from "./helpers/charsets";
+import { generateRandom } from "./helpers/utils";
 import * as types from "./helpers/types"; // eslint-disable-line no-unused-vars
 
 /**
@@ -11,18 +12,6 @@ export const useRandom = (opt) => {
   const defaultOptions = getDefaultOptions();
   const options =
     typeof opt === "number" ? opt : Object.assign({}, defaultOptions, opt);
-
-  const generateRandom = (length, charset) => {
-    const now = new Date().getMilliseconds();
-    const charLen = charset.length;
-    let str = "";
-    Array.from({ length }).forEach(() => {
-      const seed = Math.ceil(now * Math.random());
-      const index = charLen - (seed % charLen) - 1;
-      str += charset[index];
-    });
-    return str;
-  };
 
   const generate = useCallback((options) => {
     if (typeof options === "number") {

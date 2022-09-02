@@ -15,7 +15,9 @@ If the option is and object then he can contain the following props 💫:
 - `amount` 📶: if the type of the random string is selected as array or object then this prop determins the size of that collection (_defaults to `5`_).
 - `charset` 🔠: the group of the characters the word will be created from. We provided some of the popular charsets to use but still you can provide your own custom charset (_defaults to `"alphanumeric"`_).
 
-The hook returns a single `generate` function to generate the random string depends on the options you give to the hook.
+The hook returns one function:
+
+- `generate` ⚛️: function generates random string upon the given options. Don't need params.
 
 ## Examples 💥
 

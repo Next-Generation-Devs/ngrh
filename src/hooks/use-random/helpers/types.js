@@ -12,11 +12,18 @@
  */
 
 /**
+ * @callback GenerateRandom
+ * @param {number} length - the length of the word.
+ * @param {string} charset - the charset of the generated word.
+ * @return {string}
+ */
+
+/**
  * @typedef {Object} Options
- * @prop {('alphanumeric' | 'numeric' | 'alphabetic' | 'hex' | 'binary' | 'octal')} [charset] - the set that you want the random string made of.
- * @prop {number} [length] - the length of the random string
- * @prop {number} [amount] - the amount of the object keys or the array length of how much random string you want to create (use this with "array" and "object" types).
- * @prop {('individual' | 'object' | 'array')} [type] - the type of the return item you want to get from the generate function (if you choose array or object you can choose how big you want them by passing the amount prop).
+ * @prop {('alphanumeric' | 'numeric' | 'alphabetic' | 'hex' | 'binary' | 'octal')} [charset] - the group of the characters the word will be created from. We provided some of the popular charsets to use but still you can provide your own custom charset (_defaults to `"alphanumeric"`_).
+ * @prop {number} [length] - the length of the random string (_defaults to `32`_).
+ * @prop {number} [amount] - if the type of the random string is selected as array or object then this prop determins the size of that collection (_defaults to `5`_).
+ * @prop {('individual' | 'object' | 'array')} [type] - could be individual, object or array and it determens the return type of the generate function so it could be a single word or a collection of words (_defaults to `"individual"`_).
  */
 
 /**
@@ -38,7 +45,7 @@
 /**
  * @callback useRandom
  * @param {number | Options} options - the options of the random value you want the generate function to generate upon them.
- * @return {ReturnObject}
+ * @return {ReturnObject} ```{ generate }```
  */
 
 export {};
