@@ -8,9 +8,10 @@ This hook run fully by vanilla [fetch api](https://developer.mozilla.org/en-US/d
 
 The hook tooks two parameters 💡:
 
-- `key` 🗝️: which can be any string if you'll use your own **fetchProvider** or a valid api endpoint if you will to use the default provider of the hook.
-- `options` ⚙️:
-- - `fetchProvider`: a function that takes the key as a parameter and can return the data itself or a Promise that resolves the data (_defaults to a built-in provider uses [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)_).
+- `key` 🗝️: any string if you'll use your own `fetchProvider` or a valid api endpoint if you will to use the default provider of the hook.
+- `options` ⚙️: the options of the useFetch hook. contains two props:
+- - `fetchProvider`: a function that returns the data itself or a Promise that resolves the data (_defaults to a built-in provider uses [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)_). takes one parameter:
+- - - `key` : the key used in the hook (should be valid endpoint).
 - - `revalidateOnFocus`: a boolean to indicate if the data of this key will revalidate on window focus (_defaults to `true`_).
 
 The hook return an object that contains 4 values:
@@ -18,9 +19,9 @@ The hook return an object that contains 4 values:
 - `data` ℹ️: the data resolved by the fetchProvider.
 - `error` ⚠️: the error thrown by fetchProvider if exists.
 - `loading` 🔃: a state to get the loading state of the data.
-- `mutate` 💫: a function to mutate the data either on the server or just locally and it will take two parameters:
+- `mutate` 💫: a function to mutate the data either on the server or just locally. it takes two parameters:
 - - `data`: the data you want to replace your current data with (could be a promise or normal).
-- - `options`: the options of the mutate function:
+- - `options`: the options of the mutate function. has 3 props:
 - - - `revalidate`: a boolean to tell the function to revalidate the data from the server (or the cache) after mutate them (_defaults to `true`_).
 - - - `tempData`: a temporary data to keep the state truthy and get rid of the loading states (_defaults to `null`_).
 - - - `rollbackOnError`: to get the cached data if the mutate or the revalidate is rejected (_Note that you'll not roll back to cached data on error if you provide a tempData and the cache system will use the tempData instead and defaults to `true`_).

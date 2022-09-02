@@ -3,7 +3,7 @@ import { GlobalState } from "./global-state";
 import * as types from "./types"; // eslint-disable-line no-unused-vars
 
 /**
- * @return {types.MutateDefaultOptions}
+ * @type {types.GetMutateDefaultOptions}
  */
 
 const getMutateDefaultOptions = () => {
@@ -64,6 +64,10 @@ export const mutate = async (key, dataPromise, opt) => {
     }
   }
 };
+
+/**
+ * @type {types.RevalidateAllKeys}
+ */
 
 export const revalidateAllKeys = () => {
   const [get, set] = initCache();

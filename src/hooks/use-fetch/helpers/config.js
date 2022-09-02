@@ -1,7 +1,7 @@
 import * as types from "../helpers/types"; // eslint-disable-line no-unused-vars
 
 /**
- * @return {types.DefaultConfigurations}
+ * @type {types.GetDefaultConfig}
  */
 
 export const getDefaultConfig = () => {
