@@ -29,7 +29,7 @@ const initFocus = (callback) => {
 };
 
 /**
- * @return {[types.GetCache,types.SetCache,VoidFunction]}
+ * @type {types.InitCache}
  */
 
 export const initCache = () => {

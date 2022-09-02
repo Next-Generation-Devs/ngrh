@@ -57,9 +57,7 @@ const SomeComp = () => {
 };
 ```
 
-This hook comes with a **context** component that you can use if you want to use the hooks props in nested components in the application. We recomend to use this method due to it's cleaner code and better implementation.
-
-And here is how to use it 🪡:
+And here is how to use the context component it 🪡:
 
 ```js
 import { SocketProvider, Context as SocketContext } from "./use-socket";
@@ -68,7 +66,7 @@ import { useContext } from "react"
 const ButtonComp = () => {
   const { socketRef } = useContext(SocketContext)
   return (
-    <button onClick={/* Some Event */} >
+    <button onClick={/* Some Event Using The Socket */} >
       Click Me
     </button>
   )
