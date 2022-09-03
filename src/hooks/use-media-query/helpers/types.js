@@ -18,8 +18,8 @@
 
 /**
  * @typedef {Object} Options
- * @prop {number} [minWidth] - the minimum width in pixels of the scren you want the value to be true on.
- * @prop {number} [maxWidth] - the maximum width in pixels of the scren you want the value to be true on.
+ * @prop {number} [minWidth] - the minimum width in pixels of the scren you want the value to be true on (_defaults to 0_).
+ * @prop {number} [maxWidth] - the maximum width in pixels of the scren you want the value to be true on (_defaults to [Infinity](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity)_).
  */
 
 /**
