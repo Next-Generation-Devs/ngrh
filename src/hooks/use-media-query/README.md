@@ -1,4 +1,4 @@
-# The use-random hook 🚀
+# The use-media-query hook 🚀
 
 a hook to help sensoring the screen's width if it's matching the opitons or not.
 
