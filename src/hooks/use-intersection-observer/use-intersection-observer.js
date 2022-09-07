@@ -1,0 +1,35 @@
+import { useEffect, useRef } from "react";
+import { getDefaultOptions } from "./helpers/config";
+import * as types from "./helpers/types"; // eslint-disable-line no-unused-vars
+
+/**
+ * @type {types.useInterSectionObserver}
+ */
+
+export const useInterSectionObserver = (selector, opt = {}) => {
+  const defaultOptions = getDefaultOptions();
+  const options = Object.assign({}, defaultOptions, opt);
+  const observer = useRef();
+
+  useEffect(() => {
+    const Observer = new IntersectionObserver(
+      options.callback,
+      options.observerOptions
+    );
+    if (Array.isArray(selector)) {
+      selector.forEach(({ current }) => {
+        Observer.observe(current);
+      });
+    } else if (typeof selector === "string") {
+      const collection = document.querySelectorAll(selector);
+      collection.forEach((element) => {
+        Observer.observe(element);
+      });
+    } else if (selector?.current) {
+      Observer.observe(selector.current);
+    }
+    observer.current = Observer;
+  }, []);
+
+  return { observer };
+};
