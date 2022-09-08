@@ -14,7 +14,7 @@ import { RefObject } from "react";
 
 /**
  * @typedef {Object} Options
- * @prop {IntersectionObserverCallback} callback - a callback function hooked to the observer.observe (see more [here](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver)).
+ * @prop {IntersectionObserverCallback} callback - a callback function hooked to the `observer.observe` (see more [here](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver)).
  * @prop {IntersectionObserverInit} observerOptions - the observer options (see more [here](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver)).
  */
 
