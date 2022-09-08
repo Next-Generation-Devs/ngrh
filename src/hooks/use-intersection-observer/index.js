@@ -1,2 +1,2 @@
-import { useInterSectionObserver } from "./use-intersection-observer";
-export default useInterSectionObserver;
+import { useIntersectionObserver } from "./use-intersection-observer";
+export default useIntersectionObserver;
