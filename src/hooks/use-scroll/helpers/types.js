@@ -1,22 +1,38 @@
 /* eslint-disable no-unused-vars */
-import { Socket, ManagerOptions } from "socket.io-client";
 import { RefObject } from "react";
 
 /**
- * @typedef {Object} scrollTypes
- * @prop {boolean} x -  allow to get Horizontal value , 'false' by defult
- * @prop {boolean} y -  allow to get Vertical value , 'true' by defult
+ * @typedef {Object} DefaultOptions
+ * @prop {null} customRef
+ * @prop {{x:false,y:true}} scrollTypes
  */
 
 /**
- * @typedef {Object} options
- * @prop {scrollTypes} scrollTypes - to set scroll types (Vertical / Horizontal ) ,
- * @prop {RefObject} customRef - to return custom ref scroll values  , 'null' by defult
+ * @callback GetDefaultOptions
+ * @return {DefaultOptions}
+ */
+
+/**
+ * @typedef {Object} ScrollTypes
+ * @prop {boolean} x - enable getting scroll horizontal value (_defaults to `false`_).
+ * @prop {boolean} y - enable getting scroll vertical value (_defaults to `true`_).
+ */
+
+/**
+ * @typedef {Object} Options
+ * @prop {ScrollTypes} [scrollTypes] - object contains booleans determins which values you'll get.
+ * @prop {RefObject<HTMLElement>} [customRef] - if you want to get specific element's scroll set this prop to that element's ref (_defaults to `null`_).
+ */
+
+/**
+ * @typedef {Object} ReturnObject
+ * @prop {number} scroll_x - the horizontal scroll value of the window or the customref.
+ * @prop {number} scroll_y - the vertical scroll value of the window or the customref.
  */
 
 /**
  * @callback useScroll
- * @param {options} options - set custom options.
+ * @param {Options} [options] - set custom options.
  * @return {ReturnObject} ```{ scroll_x, scroll_y}```
  */
 
