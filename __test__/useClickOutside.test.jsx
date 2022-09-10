@@ -20,9 +20,7 @@ describe("test useClickOutside hook", () => {
           <div style={{ width: "100px", height: "100px" }} ref={ref}>
             in
           </div>
-          <div style={{ width: "100px", height: "100px" }} ref={ref}>
-            out
-          </div>
+          <div style={{ width: "100px", height: "100px" }}>out</div>
         </div>
       );
     }
