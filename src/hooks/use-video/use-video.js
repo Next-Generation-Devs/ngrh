@@ -29,6 +29,10 @@ export const useVideo = (ref, opt = {}) => {
     ref.current.currentTime = 0;
   }, []);
 
+  const getCurrentTime = useCallback(() => {
+    return ref.current.currentTime;
+  }, []);
+
   const onOffVideo = useCallback(() => {
     if (isPlaying) {
       return pauseVideo();
@@ -50,26 +54,30 @@ export const useVideo = (ref, opt = {}) => {
     setPlaySpeed(playSpeed);
   }, []);
 
-  const changeQuality = useCallback((index) => {
-    const newSource = ref.current.childNodes[index].src;
-    ref.current.src = newSource;
-  }, []);
-
-  const getCurrentTime = useCallback(() => {
-    return ref.current.currentTime;
-  }, []);
+  const changeQuality = useCallback(
+    (index) => {
+      const time = getCurrentTime();
+      const newSource = ref.current.childNodes[index].src;
+      ref.current.src = newSource;
+      if (isPlaying) {
+        playVideo();
+        ref.current.currentTime = time;
+      }
+    },
+    [isPlaying]
+  );
 
   const handleStopAt = useCallback(() => {
     if (ref.current.currentTime >= stopAt) {
       stopVideo();
     }
-  }, []);
+  }, [stopAt]);
 
   const handlePauseAt = useCallback(() => {
     if (ref.current.currentTime >= pauseAt) {
       pauseVideo();
     }
-  }, []);
+  }, [pauseAt]);
 
   useEffect(() => {
     ref.current.currentTime = initialStartTime;
