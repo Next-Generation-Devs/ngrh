@@ -44,6 +44,12 @@ export const useVideo = (ref, opt = {}) => {
     ref.current.currentTime += seconds;
   }, []);
 
+  const prevTime = useCallback((seconds = 5) => {
+    const { currentTime } = ref.current;
+    if (currentTime - seconds > 0) ref.current.currentTime -= seconds;
+    else ref.current.currentTime = 0;
+  }, []);
+
   const toggleLooping = useCallback(() => {
     ref.current.loop = !isLooping;
     setIsLooping(!isLooping);
@@ -110,5 +116,6 @@ export const useVideo = (ref, opt = {}) => {
     playSpeed,
     changeQuality,
     getCurrentTime,
+    prevTime,
   };
 };

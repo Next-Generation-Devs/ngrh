@@ -43,6 +43,11 @@ import { RefObject } from "react";
  */
 
 /**
+ * @callback PrevTime
+ * @param {number} [seconds] - amount of seconds to go back (_defaults to 5 seconds_).
+ */
+
+/**
  * @typedef {Object} ReturnObject
  * @prop {VoidFunction} playVideo  - a function to start the video.
  * @prop {VoidFunction} pauseVideo  - a function to pause the video.
@@ -50,6 +55,7 @@ import { RefObject } from "react";
  * @prop {VoidFunction} onOffVideo  - a function to toggle the video on and off.
  * @prop {VoidFunction} toggleLooping  - a function to toggle the video loop attribute.
  * @prop {SkipTime} skipTime  - a function to skip specific amount of time in the video.
+ * @prop {PrevTime} prevTime  - a function to go back a specific amount of time in the video.
  * @prop {ChangePlaySpeed} changePlaySpeed  - a function to change the playspeed of the video.
  * @prop {ChangeQuality} changeQuality  - a function to change the quality of the video based on the given "sources" to the video.
  * @prop {GetCurrentTime} getCurrentTime  - a function to get the current time of the video.
