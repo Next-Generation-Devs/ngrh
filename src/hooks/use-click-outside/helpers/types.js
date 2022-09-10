@@ -3,12 +3,12 @@ import { RefObject } from "react";
 
 /**
  * @callback OnClickOutside
- * @param {MouseEvent} - the native mouse click event (see more [here](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent).
+ * @param {MouseEvent} event - the native mouse click event (see more [here](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent).
  */
 
 /**
  * @callback OnTouchOutside
- * @param {TouchEvent} - the native touch start event (see more [here](https://developer.mozilla.org/en-US/docs/Web/API/Element/touchstart_event)).
+ * @param {TouchEvent} event - the native touch start event (see more [here](https://developer.mozilla.org/en-US/docs/Web/API/Element/touchstart_event)).
  */
 
 /**
