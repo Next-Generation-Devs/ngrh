@@ -83,6 +83,11 @@ import * as useRandomTypes from "hooks/use-random/helpers/types";
  */
 
 /**
+ * @callback Reverse
+ * @return {void}
+ */
+
+/**
  * @callback Swap
  * @param {number | string} firstSelector
  * @param {number | string} secondSelector
@@ -105,6 +110,7 @@ import * as useRandomTypes from "hooks/use-random/helpers/types";
  * @prop {GetShuffledList} getShuffledList
  * @prop {ResetList} resetList
  * @prop {Swap} swap
+ * @prop {Reverse} reverse
  */
 
 /**

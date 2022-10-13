@@ -60,7 +60,7 @@ export const useDynamicList = (initialValue, withUUID) => {
 
   const map = useCallback((cb) => {
     if (typeof cb === "function") {
-      listRef.current.map((...args) => {
+      listRef.current = listRef.current.map((...args) => {
         return cb(...args);
       });
       setList(deepCopy(listRef.current));
@@ -85,10 +85,9 @@ export const useDynamicList = (initialValue, withUUID) => {
   }, []);
 
   const removeItems = useCallback((selectors) => {
-    selectors.forEach((selector) => {
-      const index = getIndexFromSelector(selector);
-      listRef.current.splice(index, 1);
-      setList(deepCopy(listRef.current));
+    const indexes = selectors.map(getIndexFromSelector);
+    listRef.current = listRef.current.filter((_, i) => {
+      return !indexes.includes(i);
     });
     setList(deepCopy(listRef.current));
   }, []);
@@ -100,7 +99,7 @@ export const useDynamicList = (initialValue, withUUID) => {
   }, []);
 
   const shuffle = useCallback((modify) => {
-    const newList = Array.from({ length });
+    const newList = [];
     const copyList = deepCopy(listRef.current);
     for (let i = 0; i < listRef.current.length; i++) {
       const length = copyList.length;
@@ -136,6 +135,16 @@ export const useDynamicList = (initialValue, withUUID) => {
     setList(deepCopy(listRef.current));
   }, []);
 
+  const reverse = useCallback(() => {
+    const newList = [];
+    const length = listRef.current.length;
+    for (let i = length - 1; i >= 0; i--) {
+      newList.push(listRef.current[i]);
+    }
+    listRef.current = newList;
+    setList(deepCopy(listRef.current));
+  }, []);
+
   return {
     list,
     moveItem,
@@ -151,5 +160,6 @@ export const useDynamicList = (initialValue, withUUID) => {
     getShuffledList: shuffle.bind({}, false),
     resetList,
     swap,
+    reverse,
   };
 };
