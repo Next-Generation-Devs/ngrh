@@ -2,6 +2,11 @@
 import { useCallback, useRef, useState, Ref } from "react";
 import useRandom from "../use-random";
 import { deepCopy, isValidIndex, initialValueMapper } from "./helpers/utils";
+import * as types from "./helpers/types"; // eslint-disable-line no-unused-vars
+
+/**
+ * @type {types.useDynamicList}
+ */
 
 export const useDynamicList = (initialValue, withUUID) => {
   const { generate } = useRandom(5);
@@ -13,15 +18,26 @@ export const useDynamicList = (initialValue, withUUID) => {
     withUUID ? listRef.current.map((el) => el.uuid) : undefined
   );
 
+  const getIndexFromSelector = useCallback((selector) => {
+    if (isValidIndex(selector)) {
+      return selector;
+    } else if (withUUID && typeof selector === "string") {
+      return listRef.current.findIndex((el) => el.uuid === selector);
+    }
+  }, []);
+
   const [list, setList] = useState(deepCopy(listRef.current));
 
-  const moveItem = useCallback((currentIndex, newIndex) => {
+  const moveItem = useCallback((currentSelector, newSelector) => {
+    const currentIndex = getIndexFromSelector(currentSelector);
+    const newIndex = getIndexFromSelector(newSelector);
     const item = listRef.current.splice(currentIndex, 1)[0];
     listRef.current.splice(newIndex, 0, item);
     setList(deepCopy(listRef.current));
   }, []);
 
-  const addItem = useCallback((item, atIndex) => {
+  const addItem = useCallback((item, atSelector) => {
+    const atIndex = getIndexFromSelector(atSelector);
     const newItem = withUUID ? initialValueMapper([item], generate) : [item];
     if (isValidIndex(atIndex)) {
       listRef.current.splice(atIndex, 0, newItem[0]);
@@ -31,7 +47,8 @@ export const useDynamicList = (initialValue, withUUID) => {
     setList(deepCopy(listRef.current));
   }, []);
 
-  const addItems = useCallback((items, atIndex) => {
+  const addItems = useCallback((items, atSelector) => {
+    const atIndex = getIndexFromSelector(atSelector);
     const itemsArray = withUUID ? initialValueMapper(items, generate) : items;
     if (isValidIndex(atIndex)) {
       listRef.current.splice(atIndex, 0, ...itemsArray);
@@ -57,49 +74,28 @@ export const useDynamicList = (initialValue, withUUID) => {
   }, []);
 
   const getItem = useCallback((selector) => {
-    if (isValidIndex(selector)) {
-      return listRef.current[selector];
-    } else if (typeof selector === "string" && withUUID) {
-      const index = list.findIndex((item) => item.uuid === selector);
-      return listRef.current[index];
-    }
+    const index = getIndexFromSelector(selector);
+    return listRef.current[index];
   }, []);
 
   const removeItem = useCallback((selector) => {
-    if (isValidIndex(selector)) {
-      listRef.current.splice(selector, 1);
-    } else if (typeof selector === "string" && withUUID) {
-      const index = list.findIndex((item) => item.uuid === selector);
-      listRef.current.splice(index, 1);
-    }
+    const index = getIndexFromSelector(selector);
+    listRef.current.splice(index, 1);
     setList(deepCopy(listRef.current));
   }, []);
 
   const removeItems = useCallback((selectors) => {
     selectors.forEach((selector) => {
-      if (isValidIndex(selector)) {
-        listRef.current.splice(selector, 1);
-      } else if (typeof selector === "string" && withUUID) {
-        const index = list.findIndex((item) => item.uuid === selector);
-        listRef.current.splice(index, 1);
-      }
+      const index = getIndexFromSelector(selector);
+      listRef.current.splice(index, 1);
+      setList(deepCopy(listRef.current));
     });
     setList(deepCopy(listRef.current));
   }, []);
 
   const getSlice = useCallback((fromSelector, toSelector) => {
-    let fromIndex;
-    if (isValidIndex(fromSelector)) {
-      fromIndex = fromSelector;
-    } else if (typeof fromSelector === "string" && withUUID) {
-      fromIndex = list.findIndex((item) => item.uuid === fromSelector);
-    }
-    let toIndex;
-    if (isValidIndex(toSelector)) {
-      toIndex = toSelector;
-    } else if (typeof toSelector === "string" && withUUID) {
-      toIndex = list.findIndex((item) => item.uuid === toSelector);
-    }
+    const fromIndex = getIndexFromSelector(fromSelector);
+    const toIndex = getIndexFromSelector(toSelector);
     return listRef.current.slice(fromIndex, toIndex);
   }, []);
 
@@ -130,7 +126,9 @@ export const useDynamicList = (initialValue, withUUID) => {
     setList(deepCopy(listRef.current));
   }, []);
 
-  const swap = useCallback((firstIndex, secondIndex) => {
+  const swap = useCallback((firstSelector, secondSelector) => {
+    const firstIndex = getIndexFromSelector(firstSelector);
+    const secondIndex = getIndexFromSelector(secondSelector);
     const firstItem = listRef.current[firstIndex];
     const secondItem = listRef.current[secondIndex];
     listRef.current[firstIndex] = secondItem;

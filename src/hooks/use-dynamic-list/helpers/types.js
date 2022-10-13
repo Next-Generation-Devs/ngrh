@@ -3,22 +3,22 @@ import * as useRandomTypes from "hooks/use-random/helpers/types";
 
 /**
  * @callback MoveItem
- * @param {number} currentIndex
- * @param {number} newIndex
+ * @param {number | string} currentSelector
+ * @param {number | string} newSelector
  * @return {void}
  */
 
 /**
  * @callback AddItem
  * @param {any} item
- * @param {number} [atIndex]
+ * @param {number | string} [atSelector]
  * @return {void}
  */
 
 /**
  * @callback AddItems
  * @param {Array<any>} items
- * @param {number} [atIndex]
+ * @param {number | string} [atSelector]
  * @return {void}
  */
 
@@ -84,8 +84,8 @@ import * as useRandomTypes from "hooks/use-random/helpers/types";
 
 /**
  * @callback Swap
- * @param {number} firstIndex
- * @param {number} secondIndex
+ * @param {number | string} firstSelector
+ * @param {number | string} secondSelector
  * @return {void}
  */
 

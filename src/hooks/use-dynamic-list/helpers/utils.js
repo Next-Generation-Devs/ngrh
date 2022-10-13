@@ -1,10 +1,24 @@
+import * as types from "./types"; // eslint-disable-line no-unused-vars
+
+/**
+ * @type {types.DeepCopy}
+ */
+
 export const deepCopy = (obj) => {
   return JSON.parse(JSON.stringify(obj));
 };
 
+/**
+ * @type {types.IsValidIndex}
+ */
+
 export const isValidIndex = (num) => {
   return typeof num === "number" && (num / Math.floor(num) === 1 || num === 0);
 };
+
+/**
+ * @type {types.InitialValueMapper}
+ */
 
 export const initialValueMapper = (
   /**@type {Array<any>} */ initialValue,
