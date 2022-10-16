@@ -1,19 +1,19 @@
 import { useCallback, useEffect } from "react";
-import * as types from "./helpers/types"; // eslint-disable-line no-unused-vars
 
-/**
- * @type {types.useClickOutside}
- */
+import type { UseClickOutside } from "types/useClickOutsideTypes";
 
-export const useClickOutside = (ref, { onClickOutside, onTouchOutside }) => {
-  const handleClick = useCallback((e) => {
-    if (!ref.current.contains(e.target)) {
+export const useClickOutside: UseClickOutside = (
+  ref,
+  { onClickOutside, onTouchOutside }
+) => {
+  const handleClick = useCallback((e: MouseEvent) => {
+    if (!ref.current.contains(e.target as Node)) {
       onClickOutside(e);
     }
   }, []);
 
-  const handleTouch = useCallback((e) => {
-    if (!ref.current.contains(e.target)) {
+  const handleTouch = useCallback((e: TouchEvent) => {
+    if (!ref.current.contains(e.target as Node)) {
       if (typeof onTouchOutside === "function") {
         onTouchOutside(e);
       } else {
