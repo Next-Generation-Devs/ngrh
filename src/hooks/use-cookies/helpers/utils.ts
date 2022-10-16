@@ -1,10 +1,6 @@
-import * as types from "./types"; // eslint-disable-line no-unused-vars
+import type { Parse, Serialize } from "types/useCookiesTypes";
 
-/**
- * @type {types.Parse}
- */
-
-export const parse = (cookie = "") => {
+export const parse: Parse = (cookie) => {
   const arr = cookie.split("; ").map((el) => el.split("="));
   if (arr?.[0]?.[0] === "") return {};
   return Object.fromEntries(arr);
@@ -14,13 +10,10 @@ const priorityArray = ["low", "medium", "high"];
 
 const sameSiteArray = ["strict", "lax", "none"];
 
-const capitalize = (str = "") => str[0].toUpperCase() + str.substring(1);
+const capitalize = (str: string): string =>
+  str[0].toUpperCase() + str.substring(1);
 
-/**
- * @type {types.Serialize}
- */
-
-export const serialize = (cookieName, cookieValue, options = {}) => {
+export const serialize: Serialize = (cookieName, cookieValue, options = {}) => {
   let str = `${cookieName}=${cookieValue}`;
   if (options.maxAge && !isNaN(options.maxAge)) {
     str += `; Max-Age=${Math.floor(options.maxAge)}`;
