@@ -1,40 +1,46 @@
 import { useCallback, useReducer } from "react";
-import * as types from "./helpers/types"; // eslint-disable-line no-unused-vars
 import { reducer } from "./helpers/reducer";
 
-/**
- * @type {types.useDownloadMedia}
- */
-export const useDownloadMedia = () => {
-  const [files, dispatch] = useReducer(reducer, []);
+import type {
+  HookFiles,
+  UseDownloadMedia,
+  UseDownloadMediaReturnObject,
+} from "types/useDownloadMediaTypes";
 
-  const downloadToLocal = useCallback(
-    (id) => {
-      const file = files.find((el) => el.id === id);
-      if (file) {
-        let blob = new Blob(file.chunks);
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = file.fileName;
-        a.click();
-        a.remove();
-      }
-    },
-    [files]
-  );
+const initialState: Array<HookFiles> = [];
 
-  const getLoadingById = useCallback(
-    (id) => {
-      const temp = files.find((el) => el.id === id);
-      if (temp) {
-        return temp.loading;
-      }
-      return -1;
-    },
-    [files]
-  );
+export const useDownloadMedia: UseDownloadMedia = () => {
+  const [files, dispatch] = useReducer(reducer, initialState);
 
-  const download = async ({
+  const downloadToLocal: UseDownloadMediaReturnObject["downloadToLocal"] =
+    useCallback(
+      (id) => {
+        const file = files.find((el) => el.id === id);
+        if (file) {
+          let blob = new Blob(file.chunks);
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = file.fileName;
+          a.click();
+          a.remove();
+        }
+      },
+      [files]
+    );
+
+  const getLoadingById: UseDownloadMediaReturnObject["getLoadingById"] =
+    useCallback(
+      (id) => {
+        const temp = files.find((el) => el.id === id);
+        if (temp) {
+          return temp.loading;
+        }
+        return -1;
+      },
+      [files]
+    );
+
+  const download: UseDownloadMediaReturnObject["download"] = async ({
     url,
     fileName = url.replace(/^.*[\\/]/g, ""),
     id,
@@ -43,13 +49,14 @@ export const useDownloadMedia = () => {
     let response;
     try {
       response = await fetch(url);
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error.message);
     }
+    if (!response || !response.body) return;
     const reader = response.body.getReader();
-    const contentLength = +response.headers.get("content-length");
+    const contentLength = +(response.headers.get("content-length") || 0);
     let receivedLength = 0;
-    let chunks = [];
+    let chunks: Array<Uint8Array> = [];
     if (!files.find((el) => el.id === id)) {
       dispatch({
         type: "CREATE_LOADING",
