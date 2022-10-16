@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Wide React Hooks Library",
   "scripts": {
-    "test": "vitest"
+    "test": "vitest",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
