@@ -1,11 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
-import * as types from "./helpers/types"; // eslint-disable-line no-unused-vars
 
-/**
- * @type {types.useDragDrop}
- */
+import type { UseDragDrop } from "types/useDragDropTypes";
 
-export const useDragDrop = ({
+export const useDragDrop: UseDragDrop = ({
   selector,
   onDragEnter,
   onDragLeave,
@@ -16,11 +13,11 @@ export const useDragDrop = ({
     () => (Array.isArray(selector) ? selector : [selector]).filter(Boolean),
     [selector]
   );
-  const elementsRef = useRef();
+  const elementsRef = useRef<Array<HTMLElement>>();
 
   const handleDragEnter = useCallback(
-    (/**@type {DragEvent} */ e) => {
-      const { target } = e;
+    (e: DragEvent) => {
+      const target = e.target as HTMLElement;
       target.classList.add("dragdrop-over");
       if (typeof onDragEnter === "function") {
         onDragEnter(e);
@@ -30,8 +27,8 @@ export const useDragDrop = ({
   );
 
   const handleDragLeave = useCallback(
-    (/**@type {DragEvent} */ e) => {
-      const { target } = e;
+    (e: DragEvent) => {
+      const target = e.target as HTMLElement;
       target.classList.remove("dragdrop-over");
       if (typeof onDragLeave === "function") {
         onDragLeave(e);
@@ -41,7 +38,7 @@ export const useDragDrop = ({
   );
 
   const handleDragOver = useCallback(
-    (/**@type {DragEvent} */ e) => {
+    (e: DragEvent) => {
       e.preventDefault();
       if (typeof onDragOver === "function") {
         onDragOver(e);
@@ -51,8 +48,8 @@ export const useDragDrop = ({
   );
 
   const handleDrop = useCallback(
-    (/**@type {DragEvent} */ e) => {
-      const { target } = e;
+    (e: DragEvent) => {
+      const target = e.target as HTMLElement;
       target.classList.remove("dragdrop-over");
       if (typeof onDrop === "function") {
         onDrop(e);
@@ -61,15 +58,15 @@ export const useDragDrop = ({
     [selector]
   );
 
-  const handleDropDocument = useCallback((/**@type {DragEvent} */ e) => {
+  const handleDropDocument = useCallback((e: DragEvent) => {
     e.preventDefault();
   }, []);
 
   useEffect(() => {
-    const elements = selectorArray.map((_selector) => {
+    const elements: Array<HTMLElement> = selectorArray.map((_selector) => {
       let element;
       if (typeof _selector === "string") {
-        element = document.querySelector(`#${_selector}`);
+        element = document.querySelector(`#${_selector}`) as HTMLElement;
       } else if (_selector?.current instanceof HTMLElement) {
         element = _selector.current;
       } else {
@@ -80,7 +77,7 @@ export const useDragDrop = ({
       return element;
     });
     elementsRef.current = elements;
-    elements.forEach((/**@type {HTMLElement} */ element) => {
+    elements.forEach((element) => {
       element.addEventListener("dragenter", handleDragEnter);
       element.addEventListener("dragleave", handleDragLeave);
       element.addEventListener("dragover", handleDragOver);
@@ -91,7 +88,7 @@ export const useDragDrop = ({
 
   useEffect(() => {
     return () => {
-      elementsRef.current.forEach((/**@type {HTMLElement} */ element) => {
+      elementsRef.current?.forEach((element) => {
         element.removeEventListener("dragenter", handleDragEnter);
         element.removeEventListener("dragleave", handleDragLeave);
         element.removeEventListener("dragover", handleDragOver);
