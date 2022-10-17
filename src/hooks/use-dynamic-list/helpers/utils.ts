@@ -1,27 +1,23 @@
-import * as types from "./types"; // eslint-disable-line no-unused-vars
+import type {
+  DeepCopy,
+  InitialValueMapper,
+  IsValidIndex,
+} from "types/useDynamicListTypes";
 
-/**
- * @type {types.DeepCopy}
- */
-
-export const deepCopy = (obj) => {
+export const deepCopy: DeepCopy = (obj) => {
   return JSON.parse(JSON.stringify(obj));
 };
 
-/**
- * @type {types.IsValidIndex}
- */
-
-export const isValidIndex = (num) => {
-  return typeof num === "number" && (num / Math.floor(num) === 1 || num === 0);
+export const isValidIndex: IsValidIndex = (num) => {
+  return (
+    typeof num === "number" &&
+    (num / Math.floor(num) === 1 || num === 0) &&
+    num >= 0
+  );
 };
 
-/**
- * @type {types.InitialValueMapper}
- */
-
-export const initialValueMapper = (
-  /**@type {Array<any>} */ initialValue,
+export const initialValueMapper: InitialValueMapper = (
+  initialValue,
   uuidGetter
 ) => {
   const arr = initialValue.map((item, i) => {
