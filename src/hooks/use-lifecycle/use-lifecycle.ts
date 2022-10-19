@@ -1,15 +1,12 @@
 import { getDefaultFunctions } from "./helpers/config";
 import { useEffect, useRef } from "react";
-import * as types from "./helpers/types"; // eslint-disable-line no-unused-vars
 
-/**
- * @type {types.useLifecycle}
- */
+import type { UseLifecycle } from "types/useLifecycleTypes";
 
-export const useLifecycle = (funcs = {}, conditions = []) => {
+export const useLifecycle: UseLifecycle = (funcs = {}, conditions = []) => {
   const defaultFunctions = getDefaultFunctions();
   const functions = Object.assign({}, defaultFunctions, funcs);
-  const isMounted = useRef(false);
+  const isMounted = useRef<boolean>(false);
   const { didMount, didUpdate, willUnmount } = functions;
 
   useEffect(() => {

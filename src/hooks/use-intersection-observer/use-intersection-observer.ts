@@ -5,7 +5,7 @@ import type { UseIntersectionObserver } from "types/useIntersectionObserverTypes
 
 export const useIntersectionObserver: UseIntersectionObserver = (
   selector,
-  opt
+  opt = {}
 ) => {
   const defaultOptions = getDefaultOptions();
   const options = Object.assign({}, defaultOptions, opt);

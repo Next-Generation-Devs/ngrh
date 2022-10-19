@@ -12,8 +12,8 @@ export interface UseIntersectionObserverReturnObject {
 }
 
 export interface IntersectionObserverOptions {
-  /** a callback function hooked to the `observer.observe` (see more [here](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver)). */ callback: IntersectionObserverCallback;
-  /** the observer options (see more [here](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver)). */ observerOptions: IntersectionObserverInit;
+  /** a callback function hooked to the `observer.observe` (see more [here](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver)). */ callback?: IntersectionObserverCallback;
+  /** the observer options (see more [here](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver)). */ observerOptions?: IntersectionObserverInit;
 }
 
 export type UseIntersectionObserver = (
