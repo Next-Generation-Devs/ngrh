@@ -1,15 +1,15 @@
 import { useEffect, useRef } from "react";
 import { getDefaultOptions } from "./helpers/config";
-import * as types from "./helpers/types"; // eslint-disable-line no-unused-vars
 
-/**
- * @type {types.useInterSectionObserver}
- */
+import type { UseIntersectionObserver } from "types/useIntersectionObserverTypes";
 
-export const useIntersectionObserver = (selector, opt = {}) => {
+export const useIntersectionObserver: UseIntersectionObserver = (
+  selector,
+  opt
+) => {
   const defaultOptions = getDefaultOptions();
   const options = Object.assign({}, defaultOptions, opt);
-  const observer = useRef();
+  const observer = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
     const Observer = new IntersectionObserver(
