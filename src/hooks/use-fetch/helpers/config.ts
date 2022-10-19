@@ -1,11 +1,7 @@
-import * as types from "../helpers/types"; // eslint-disable-line no-unused-vars
+import type { GetDefaultConfig } from "types/useFetchTypes";
 
-/**
- * @type {types.GetDefaultConfig}
- */
-
-export const getDefaultConfig = () => {
-  const defaultFetch = async (url) => {
+export const getDefaultConfig: GetDefaultConfig = () => {
+  const defaultFetch = async (url: string) => {
     const response = await fetch(url, { method: "GET", keepalive: true });
     const data = await response.json();
     if (!response.ok) {

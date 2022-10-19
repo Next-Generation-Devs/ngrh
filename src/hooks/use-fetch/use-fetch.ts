@@ -1,18 +1,14 @@
 import { useRef, useEffect, useState, useCallback } from "react";
+import { UseFetch, UseFetchReturnObject } from "types/useFetchTypes";
 import { initCache } from "./helpers/cache";
 import { getDefaultConfig } from "./helpers/config";
-import * as types from "./helpers/types"; // eslint-disable-line no-unused-vars
 import { mutate as internalMutate } from "./helpers/mutate";
 
-/**
- * @type {types.useFetch}
- */
-
-export const useFetch = (key, options = {}) => {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const isMounted = useRef(true);
+export const useFetch: UseFetch = (key, options = {}) => {
+  const [data, setData] = useState<UseFetchReturnObject["data"]>(null);
+  const [error, setError] = useState<UseFetchReturnObject["error"]>(null);
+  const [loading, setLoading] = useState<UseFetchReturnObject["loading"]>(true);
+  const isMounted = useRef<boolean>(true);
   const [getCache, setCache, unmount] = initCache();
 
   const defaultConfig = getDefaultConfig();
@@ -25,7 +21,7 @@ export const useFetch = (key, options = {}) => {
     setData(cachedValue.data);
   }, [key]);
 
-  const mutate = useCallback(
+  const mutate: UseFetchReturnObject["mutate"] = useCallback(
     async (data, options) => {
       await internalMutate(key, data, options);
     },

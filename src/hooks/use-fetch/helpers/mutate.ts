@@ -1,24 +1,27 @@
 import { initCache } from "./cache";
 import { GlobalState } from "./global-state";
-import * as types from "./types"; // eslint-disable-line no-unused-vars
 
-/**
- * @type {types.GetMutateDefaultOptions}
- */
+import type {
+  Cache,
+  GetMutateDefaultOptions,
+  MutateOptions,
+  MutateParams,
+  RevalidateAllKeys,
+} from "types/useFetchTypes";
 
-const getMutateDefaultOptions = () => {
+const getMutateDefaultOptions: GetMutateDefaultOptions = () => {
   return { revalidate: true, tempData: undefined, rollbackOnError: true };
 };
 
-/**
- * @type {types.Mutate}
- */
-
-export const mutate = async (key, dataPromise, opt) => {
+export const mutate = async <T = any, E = any>(
+  key: MutateParams<T>["key"],
+  dataPromise?: MutateParams<T>["dataPromise"],
+  opt: MutateParams<T>["options"] = {}
+): Promise<void> => {
   const defaultOptions = getMutateDefaultOptions();
   const options = Object.assign({}, defaultOptions, opt);
   const [get, set] = initCache();
-  const cachedData = get(key);
+  const cachedData = get<T, E>(key);
   const {
     config: { fetchProvider },
   } = cachedData;
@@ -27,10 +30,7 @@ export const mutate = async (key, dataPromise, opt) => {
   }
   if (dataPromise) {
     try {
-      let result = dataPromise;
-      if (result instanceof Promise) {
-        result = await result;
-      }
+      const result = await dataPromise;
       if (!options.tempData) {
         set(key, {
           ...cachedData,
@@ -50,12 +50,12 @@ export const mutate = async (key, dataPromise, opt) => {
   }
   if (options.revalidate) {
     try {
-      let result = fetchProvider(key);
+      let result = fetchProvider<T>(key);
       if (result instanceof Promise) {
         result = await result;
       }
       set(key, { ...cachedData, data: result, error: null });
-    } catch (err) {
+    } catch (err: any) {
       set(key, {
         ...cachedData,
         data: options.rollbackOnError ? cachedData.data : null,
@@ -65,14 +65,9 @@ export const mutate = async (key, dataPromise, opt) => {
   }
 };
 
-/**
- * @type {types.RevalidateAllKeys}
- */
-
-export const revalidateAllKeys = () => {
+export const revalidateAllKeys: RevalidateAllKeys = () => {
   const [get, set] = initCache();
-  /**@type {types.Cache} */
-  const cache = GlobalState.get("cache");
+  const cache = GlobalState.get("cache") as Cache;
   cache.forEach(async (value, key) => {
     const {
       config: { fetchProvider, revalidateOnFocus },
