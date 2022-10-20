@@ -1,4 +1,4 @@
-import * as types from "./types"; // eslint-disable-line no-unused-vars
+import type { GetSet } from "types/useRandomTypes";
 
 const ALPHA_NUMERIC =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
@@ -13,11 +13,7 @@ const BINARY = "01";
 
 const OCTAL = "01234567";
 
-/**
- * @type {types.GetSet}
- */
-
-export const getSet = (charset) => {
+export const getSet: GetSet = (charset) => {
   if (charset === "alphanumeric") {
     return ALPHA_NUMERIC;
   } else if (charset === "numeric") {

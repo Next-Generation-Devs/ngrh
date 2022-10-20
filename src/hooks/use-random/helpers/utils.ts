@@ -1,10 +1,6 @@
-import * as types from "./types"; // eslint-disable-line no-unused-vars
+import type { GenerateRandom } from "types/useRandomTypes";
 
-/**
- * @type {types.GenerateRandom}
- */
-
-export const generateRandom = (length, charset) => {
+export const generateRandom: GenerateRandom = (length, charset) => {
   const now = new Date().getMilliseconds();
   const charLen = charset.length;
   let str = "";

@@ -2,33 +2,36 @@ import { useCallback } from "react";
 import { getDefaultOptions } from "./helpers/options";
 import { getSet } from "./helpers/charsets";
 import { generateRandom } from "./helpers/utils";
-import * as types from "./helpers/types"; // eslint-disable-line no-unused-vars
 
-/**
- * @type {types.useRandom}
- */
+import type {
+  Generate,
+  GenerateFromNumber,
+  RandomObject,
+  UseRandom,
+} from "types/useRandomTypes";
 
-export const useRandom = (opt) => {
+export const useRandom: UseRandom = (opt) => {
   const defaultOptions = getDefaultOptions();
   const options =
     typeof opt === "number" ? opt : Object.assign({}, defaultOptions, opt);
 
-  const generate = useCallback((options) => {
-    if (typeof options === "number") {
-      return generateRandom(options, getSet("alphanumeric"));
-    }
+  const generateFromNumber: GenerateFromNumber = useCallback((options) => {
+    return generateRandom(options, getSet("alphanumeric"));
+  }, []);
+
+  const generate: Generate = useCallback((options) => {
     switch (options.type) {
       case "individual":
         return generateRandom(options.length, getSet(options.charset));
       case "object": {
-        const obj = {};
+        const obj: RandomObject = {};
         Array.from({ length: options.amount }).forEach((_, i) => {
           obj[i] = generateRandom(options.length, getSet(options.charset));
         });
         return obj;
       }
       case "array": {
-        const arr = [];
+        const arr: Array<string> = [];
         Array.from({ length: options.amount }).forEach(() => {
           arr.push(generateRandom(options.length, getSet(options.charset)));
         });
@@ -38,6 +41,9 @@ export const useRandom = (opt) => {
   }, []);
 
   return {
-    generate: () => generate(options),
+    generate:
+      typeof options === "number"
+        ? () => generateFromNumber(options)
+        : () => generate(options),
   };
 };
