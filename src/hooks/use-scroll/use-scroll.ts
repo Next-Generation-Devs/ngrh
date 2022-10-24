@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { getDefaultOptions } from "./helpers/config";
-import * as types from "./helpers/types"; // eslint-disable-line no-unused-vars
 
-/**
- * @type {types.useScroll}
- */
+import type { UseScroll } from "types/useScrollTypes";
 
-export function useScroll(opt = {}) {
+export const useScroll: UseScroll = (opt = {}) => {
   const defaultOptions = getDefaultOptions();
-  const options = Object.assign({}, defaultOptions, opt);
+  const options = {
+    ...defaultOptions,
+    ...opt,
+  };
   const { customRef, scrollTypes } = options;
   const [sx, setSx] = useState(0);
   const [sy, setSy] = useState(0);
@@ -39,4 +39,4 @@ export function useScroll(opt = {}) {
   }, []);
 
   return { scroll_x: sx, scroll_y: sy };
-}
+};
