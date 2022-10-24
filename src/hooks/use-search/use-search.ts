@@ -1,27 +1,30 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getDefaultOptions } from "./helpers/config";
 import { contains, filterSearch, findPath } from "./helpers/utils";
-import * as types from "./helpers/types"; // eslint-disable-line no-unused-vars
 
-/**
- * @type {types.useSearch}
- */
+import type { UseSearch } from "types/useSearchTypes";
 
-export const useSearch = (source, opt = {}) => {
+type extractGeneric<Type> = Type extends UseSearch<infer X> ? X : never;
+
+type extracted = extractGeneric<UseSearch>;
+
+export const useSearch: UseSearch = (source, opt = {}) => {
   const defaultOptions = getDefaultOptions();
   const options = Object.assign({}, defaultOptions, opt);
   const [query, setQuery] = useState("");
-  const [result, setResult] = useState();
-  const ref = useRef();
+  const [result, setResult] = useState<extracted>(null);
+  const ref = useRef<HTMLInputElement>();
 
   const onInputListener = useCallback(
-    (e) => {
-      const newQuery = e.target.value;
+    function (this: HTMLInputElement) {
+      const newQuery = this.value;
       setQuery(newQuery);
       switch (options.searchType) {
         case "filter":
           {
-            setResult(filterSearch(source, newQuery, options.strictFilter));
+            setResult(
+              filterSearch<extracted>(source, newQuery, options.strictFilter)
+            );
           }
           break;
         case "check":

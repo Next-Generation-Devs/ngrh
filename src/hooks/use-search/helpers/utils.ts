@@ -1,6 +1,14 @@
-import * as types from "./types"; // eslint-disable-line no-unused-vars
+import {
+  Contains,
+  FilterSearch,
+  FindPath,
+  GetByPath,
+  GetType,
+} from "types/useSearchTypes";
 
-const getType = (source) => {
+type extractGeneric<Type> = Type extends FindPath<infer X> ? X : never;
+
+const getType: GetType = (source) => {
   if (Array.isArray(source)) {
     return "array";
   } else if (typeof source === "object") {
@@ -11,12 +19,8 @@ const getType = (source) => {
   return null;
 };
 
-/**
- * @type {types.GetByPath}
- */
-
-export const getByPath = (obj, path) => {
-  let value = obj;
+export const getByPath: GetByPath = (obj, path) => {
+  let value = obj as any;
   path.split(".").forEach((s) => {
     if (s.startsWith("[")) {
       const index = s.replace(/[[\]]/g, "");
@@ -28,24 +32,20 @@ export const getByPath = (obj, path) => {
   return value;
 };
 
-/**
- * @type {types.Contains}
- */
-
-export const contains = (source, query) => {
+export const contains: Contains = (source, query) => {
   if (!query) return null;
   const type = getType(source);
   switch (type) {
     case "array": {
-      const result = source.some((el) => contains(el, query));
+      const result = (source as Array<any>).some((el) => contains(el, query));
       return result;
     }
     case "object": {
-      const result = Object.keys(source).reduce((acc, key) => {
+      const result = Object.keys(source).reduce<boolean>((acc, key) => {
         if (acc) return acc;
         const value = source[key];
         const result = contains(value, query);
-        return result;
+        return Boolean(result);
       }, false);
       return result;
     }
@@ -58,22 +58,22 @@ export const contains = (source, query) => {
   }
 };
 
-/**
- * @type {types.FilterSearch}
- */
-
-export const filterSearch = (source, query, strictFilter = false) => {
+export const filterSearch: FilterSearch = (
+  source,
+  query,
+  strictFilter = false
+) => {
   if (!query) return null;
   const type = getType(source);
   switch (type) {
     case "array": {
       const arr = source
-        .map((el) => filterSearch(el, query, strictFilter))
+        .map((el: any) => filterSearch(el, query, strictFilter))
         .filter(Boolean);
       return arr;
     }
     case "object": {
-      const obj = Object.keys(source).reduce((acc, key) => {
+      const obj = Object.keys(source).reduce<any>((acc, key) => {
         const value = source[key];
         const result = filterSearch(value, query, strictFilter);
         if (result) {
@@ -97,19 +97,20 @@ export const filterSearch = (source, query, strictFilter = false) => {
   }
 };
 
-/**
- * @type {types.FindPath}
- */
-
-export const findPath = (source, query, parsePaths = false) => {
+export const findPath: FindPath = (source, query, parsePaths = false) => {
   if (!query) return null;
-  const arr = [];
-  const pushToArr = (source, path = "") => {
+  const arr: Array<string> = [];
+  const pushToArr: (source: any, path?: string) => void = (
+    source,
+    path = ""
+  ) => {
     const type = getType(source);
     switch (type) {
       case "array":
         {
-          source.forEach((s, i) => pushToArr(s, `${path}[${i}]`));
+          (source as Array<any>).forEach((s, i) =>
+            pushToArr(s, `${path}[${i}]`)
+          );
         }
         break;
       case "object":
@@ -129,7 +130,10 @@ export const findPath = (source, query, parsePaths = false) => {
   };
   pushToArr(source);
   if (parsePaths) {
-    return arr.map((path) => getByPath(source, path));
+    const newArr = arr.map((path) =>
+      getByPath<extractGeneric<FindPath>>(source, path)
+    );
+    return newArr;
   }
   return arr;
 };
