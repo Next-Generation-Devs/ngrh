@@ -11,7 +11,8 @@
     "declaration": true,
     "allowJs": true,
     "strict": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "jsx": "react-jsx"
   },
   "include": ["src/**/*"]
 }

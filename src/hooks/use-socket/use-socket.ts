@@ -1,22 +1,20 @@
 import { useEffect, useRef, useState } from "react";
-import { io } from "socket.io-client";
-import * as types from "./helpers/types"; // eslint-disable-line no-unused-vars
+import { io, Socket } from "socket.io-client";
+import { UseSocket, UseSocketReturnObject } from "types/useSocketTypes";
 
-let socket = null;
+let socket: Socket | null = null;
 
-/**
- * @type {types.useSocket}
- */
-
-const useSocket = (
+const useSocket: UseSocket = (
   serverUrl,
   options = {},
   onConnect = () => {},
   onDisconnect = () => {}
 ) => {
-  const socketRef = useRef(null);
-  const [isConnecting, setIsConnecting] = useState(true);
-  const [isDisconnected, setIsDisconnected] = useState(false);
+  const socketRef = useRef(null) as UseSocketReturnObject["socketRef"];
+  const [isConnecting, setIsConnecting] =
+    useState<UseSocketReturnObject["isConnecting"]>(true);
+  const [isDisconnected, setIsDisconnected] =
+    useState<UseSocketReturnObject["isDisconnected"]>(false);
 
   useEffect(() => {
     if (!socket) {
@@ -34,7 +32,7 @@ const useSocket = (
       });
     }
     return () => {
-      socket.disconnect();
+      socket?.disconnect();
       socket = null;
       socketRef.current = null;
     };

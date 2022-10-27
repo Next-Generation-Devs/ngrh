@@ -1,12 +1,6 @@
-import React from "react";
-import { useSocket } from ".";
-import * as types from "./helpers/types"; // eslint-disable-line no-unused-vars
+import useSocket from "hooks/use-socket";
+import { SocketProviderProps } from "types/useSocketTypes";
 import SocketContext from "./Context";
-import PropTypes from "prop-types";
-
-/**
- * @type {React.FC<types.ProviderProps>}
- */
 
 const SocketProvider = ({
   children,
@@ -14,7 +8,7 @@ const SocketProvider = ({
   onConnect,
   onDisconnect,
   socketOptions,
-}) => {
+}: SocketProviderProps) => {
   const { socketRef, isConnecting, isDisconnected } = useSocket(
     socketURL,
     socketOptions,
@@ -29,11 +23,3 @@ const SocketProvider = ({
 };
 
 export default SocketProvider;
-
-SocketProvider.propTypes = {
-  socketURL: PropTypes.string.isRequired,
-  socketOptions: PropTypes.object,
-  children: PropTypes.any.isRequired,
-  onConnect: PropTypes.func,
-  onDisconnect: PropTypes.func,
-};
