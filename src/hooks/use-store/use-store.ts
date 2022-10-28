@@ -1,16 +1,14 @@
 import { useCallback, useState } from "react";
+import { UseStore } from "types/useStoreTypes";
 import { GlobalStore } from "./helpers/global-store";
-import * as types from "./helpers/types"; // eslint-disable-line no-unused-vars
 import { initState } from "./helpers/utils";
 
-/**
- * @type {types.useStore}
- */
+export const useStore: UseStore = (key, initialState) => {
+  const [state, set] = useState<typeof initialState>(
+    initState<typeof initialState>(key, initialState)
+  );
 
-export const useStore = (key, initialState = null) => {
-  const [state, set] = useState(initState(key, initialState));
-
-  const setState = useCallback(
+  const setState: (state: typeof initialState) => void = useCallback(
     (state) => {
       GlobalStore.set(key, state);
       GlobalStore.onSetGlobal(key, state);

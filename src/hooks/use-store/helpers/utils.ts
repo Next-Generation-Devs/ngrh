@@ -1,11 +1,7 @@
+import { InitState } from "types/useStoreTypes";
 import { GlobalStore } from "./global-store";
-import * as types from "./types"; // eslint-disable-line no-unused-vars
 
-/**
- * @type {types.InitState}
- */
-
-export const initState = (key, state) => {
+export const initState: InitState = (key, state) => {
   const storedData = GlobalStore.get(key);
   if (storedData) {
     return storedData;

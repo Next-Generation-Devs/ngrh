@@ -1,16 +1,14 @@
-import * as types from "./types"; // eslint-disable-line no-unused-vars
+import { ACTION_TYPE } from "types/useStoreTypes";
 
-/**
- * @type {types.Reducer}
- */
-
-const reducer = (state, action) => {
+const reducer = (state: Record<string, any>, action: ACTION_TYPE) => {
   switch (action.type) {
     case "MUTATE_KEY":
       return {
         ...state,
         [action.key]: action.state,
       };
+    default:
+      return state;
   }
 };
 
