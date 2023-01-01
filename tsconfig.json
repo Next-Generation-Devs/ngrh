@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "hooks/*": ["./src/hooks/*"],
+      "types/*": ["./src/types/*"]
+    },
+    "target": "ESNext",
+    "rootDir": "./src",
+    "outDir": "./build",
+    "declaration": true,
+    "allowJs": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "jsx": "react-jsx"
+  },
+  "include": ["src/**/*"]
+}
