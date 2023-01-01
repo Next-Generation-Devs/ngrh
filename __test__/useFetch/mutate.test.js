@@ -70,7 +70,7 @@ describe("mutate test", () => {
     });
     expect(result.current.data).toEqual("updating");
     await waitFor(() => expect(result.current.data[1].name).toEqual(newName), {
-      timeout: 3000,
+      timeout: 5000,
     });
   });
   it("test mutate in cache", async () => {

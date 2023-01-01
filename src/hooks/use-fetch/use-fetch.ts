@@ -22,8 +22,15 @@ export const useFetch: UseFetch = (key, options = {}) => {
   }, [key]);
 
   const mutate: UseFetchReturnObject["mutate"] = useCallback(
-    async (data, options) => {
-      await internalMutate(key, data, options);
+    (data, options) => {
+      if (data instanceof Promise) {
+        return new Promise(async (resolve) => {
+          await internalMutate(key, data, options);
+          resolve();
+        });
+      } else {
+        internalMutate(key, data, options);
+      }
     },
     [key]
   );

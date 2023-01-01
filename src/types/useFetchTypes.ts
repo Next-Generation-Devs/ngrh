@@ -72,7 +72,7 @@ export type KeyMutate = <T = any>(
     | Promise<T>
     | T,
   /** options: the options of the mutate function. */ options: MutateOptions<T>
-) => Promise<void>;
+) => void | Promise<void>;
 
 export interface UseFetchReturnObject<T = any, E = any> {
   /** the data resolved by the fetchProvider. */ data: T | null;

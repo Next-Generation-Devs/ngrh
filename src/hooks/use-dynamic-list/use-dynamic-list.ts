@@ -8,13 +8,17 @@ import type {
   UseDynamicListReturnObject,
 } from "types/useDynamicListTypes";
 
+type StringGetter = () => string;
+
 export const useDynamicList: UseDynamicList = (
   initialValue,
   withUUID = false
 ) => {
   const { generate } = useRandom(5);
   const listRef = useRef<Array<any>>(
-    withUUID ? initialValueMapper(initialValue, generate) : initialValue
+    withUUID
+      ? initialValueMapper(initialValue, generate as StringGetter)
+      : initialValue
   );
   const uuidList = withUUID
     ? useRef<Array<string>>(listRef.current.map((el) => el.uuid))
@@ -48,8 +52,10 @@ export const useDynamicList: UseDynamicList = (
 
   const addItem: UseDynamicListReturnObject["addItem"] = useCallback(
     (item, atSelector) => {
-      const atIndex = atSelector ? getIndexFromSelector(atSelector) : 0;
-      const newItem = withUUID ? initialValueMapper([item], generate) : [item];
+      const atIndex = atSelector ? getIndexFromSelector(atSelector) : null;
+      const newItem = withUUID
+        ? initialValueMapper([item], generate as StringGetter)
+        : [item];
       if (isValidIndex(atIndex)) {
         listRef.current.splice(atIndex as number, 0, newItem[0]);
       } else {
@@ -62,8 +68,10 @@ export const useDynamicList: UseDynamicList = (
 
   const addItems: UseDynamicListReturnObject["addItems"] = useCallback(
     (items, atSelector) => {
-      const atIndex = atSelector ? getIndexFromSelector(atSelector) : 0;
-      const itemsArray = withUUID ? initialValueMapper(items, generate) : items;
+      const atIndex = atSelector ? getIndexFromSelector(atSelector) : null;
+      const itemsArray = withUUID
+        ? initialValueMapper(items, generate as StringGetter)
+        : items;
       if (isValidIndex(atIndex)) {
         listRef.current.splice(atIndex as number, 0, ...itemsArray);
       } else {
